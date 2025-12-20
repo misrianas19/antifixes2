@@ -16,8 +16,9 @@ export default async function AdminPage() {
   const session = await getServerSession(authOptions);
 
   // ❌ Not logged in → go to login
-  if (!session) {
+  if (!session || !session.user) {
     redirect("/auth/login");
+    return null; // Ensure flow doesn't proceed
   }
 
   // 🔒 Explicit narrowing for TypeScript
